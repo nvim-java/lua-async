@@ -49,6 +49,8 @@ end
 This is how you can call this asynchronous API without a callback
 
 ```lua
+local M = require('sync')
+
 M.sync(function()
 	local response = M.wait_handle_error(M.wrap(lsp_request)())
 end).run()
@@ -68,6 +70,8 @@ stack traceback:
 ### When error handler is defined
 
 ```lua
+local M = require('sync')
+
 local main = M.sync(function()
 	local response = M.wait_handle_error(M.wrap(lsp_request)())
 end)
@@ -86,6 +90,8 @@ error occured  test6.lua:105: something went wrong
 ### When nested
 
 ```lua
+local M = require('sync')
+
 local nested = M.sync(function()
 	local response = M.wait_handle_error(M.wrap(lsp_request)())
 end)
