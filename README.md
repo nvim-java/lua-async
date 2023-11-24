@@ -13,11 +13,11 @@ Ex:-
 
 ```lua
 self.client.request('workspace/executeCommand', cmd_info, function(err, res)
-	if err then
-		log.error(command .. ' failed! arguments: ', arguments, ' error: ', err)
-	else
-		log.debug(command .. ' success! response: ', res)
-	end
+  if err then
+    log.error(command .. ' failed! arguments: ', arguments, ' error: ', err)
+  else
+    log.debug(command .. ' success! response: ', res)
+  end
 end, buffer)
 ```
 
@@ -33,14 +33,14 @@ Assume following is the asynchronous API
 
 ```lua
 local function lsp_request(callback)
-	local timer = vim.loop.new_timer()
+  local timer = vim.loop.new_timer()
 
-	assert(timer)
+  assert(timer)
 
-	timer:start(2000, 0, function()
-		-- First parameter is the error
-		callback('something went wrong', nil)
-	end)
+  timer:start(2000, 0, function()
+    -- First parameter is the error
+    callback('something went wrong', nil)
+  end)
 end
 ```
 
@@ -52,7 +52,7 @@ This is how you can call this asynchronous API without a callback
 local M = require('sync')
 
 M.sync(function()
-	local response = M.wait_handle_error(M.wrap(lsp_request)())
+  local response = M.wait_handle_error(M.wrap(lsp_request)())
 end).run()
 ```
 
@@ -62,9 +62,9 @@ Result:
 Error executing luv callback:
 test6.lua:43: unhandled error test6.lua:105: something went wrong
 stack traceback:
-	[C]: in function 'error'
-	test6.lua:43: in function 'callback'
-	test6.lua:130: in function <test6.lua:129>
+  [C]: in function 'error'
+  test6.lua:43: in function 'callback'
+  test6.lua:130: in function <test6.lua:129>
 ```
 
 ### When error handler is defined
@@ -73,12 +73,12 @@ stack traceback:
 local M = require('sync')
 
 local main = M.sync(function()
-	local response = M.wait_handle_error(M.wrap(lsp_request)())
+  local response = M.wait_handle_error(M.wrap(lsp_request)())
 end)
-	.catch(function(err)
-		print('error occurred ', err)
-	end)
-	.run()
+  .catch(function(err)
+    print('error occurred ', err)
+  end)
+  .run()
 ```
 
 Result:
@@ -93,16 +93,16 @@ error occured  test6.lua:105: something went wrong
 local M = require('sync')
 
 local nested = M.sync(function()
-	local response = M.wait_handle_error(M.wrap(lsp_request)())
+  local response = M.wait_handle_error(M.wrap(lsp_request)())
 end)
 
 M.sync(function()
-	M.wait_handle_error(nested.run)
+  M.wait_handle_error(nested.run)
 end)
-	.catch(function(err)
-		print('parent error handler ' .. err)
-	end)
-	.run()
+  .catch(function(err)
+    print('parent error handler ' .. err)
+  end)
+  .run()
 ```
 
 Result:
