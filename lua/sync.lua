@@ -43,8 +43,11 @@ local function async(func)
 				error("unhandled error " .. thunk)
 			end
 
-			if co.status(thread) == "dead" and parent_handler_callback then
-				parent_handler_callback(thunk)
+			assert(ok, thunk)
+			if co.status(thread) == "dead" then
+				if parent_handler_callback then
+					parent_handler_callback(thunk)
+				end
 			else
 				assert(type(thunk) == "function", "type error :: expected func")
 				thunk(step)
