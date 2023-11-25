@@ -84,7 +84,7 @@ end)
 Result:
 
 ```
-error occured  test6.lua:105: something went wrong
+error occurred test6.lua:105: something went wrong
 ```
 
 ### When nested
