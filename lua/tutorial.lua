@@ -14,6 +14,7 @@ vim.cmd.messages("clear")
 
 local nested = M.sync(function()
 	local response = M.wait_handle_error(M.wrap(lsp_request)())
+	vim.print(response)
 end)
 
 M.sync(function()
