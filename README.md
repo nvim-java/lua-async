@@ -1,4 +1,4 @@
-# [Lua Async](https://github.com/nvim-java/lua-async)
+# lua-async
 
 Synchronous like asynchronous for Lua.
 
