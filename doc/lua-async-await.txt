@@ -3,13 +3,13 @@
 ==============================================================================
 Table of Contents                          *lua-async-await-table-of-contents*
 
-1. Lua Async                                       |lua-async-await-lua-async|
+1. lua-async                                       |lua-async-await-lua-async|
   - What                                                |lua-async-await-what|
   - Why                                                  |lua-async-await-why|
   - How to use                                    |lua-async-await-how-to-use|
 
 ==============================================================================
-1. Lua Async                                       *lua-async-await-lua-async*
+1. lua-async                                       *lua-async-await-lua-async*
 
 Synchronous like asynchronous for Lua.
 
