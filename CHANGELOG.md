@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/nvim-java/lua-async-await/compare/v1.0.0...v1.1.0) (2024-03-31)
+
+
+### Features
+
+* simplify APIs and re name the confusing terms ([03abf6f](https://github.com/nvim-java/lua-async-await/commit/03abf6fc368b48389fda75670321a6af7a2b53fd))
+
 ## 1.0.0 (2023-12-10)
 
 
