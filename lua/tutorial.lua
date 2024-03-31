@@ -1,26 +1,54 @@
-local M = require("sync")
+local runner = require("async.runner")
+local wrap = require("async.wrap")
+local wait = require("async.waits.wait_with_error_handler")
 
-local function lsp_request(callback)
+local function success_async(callback)
 	local timer = vim.loop.new_timer()
 
 	assert(timer)
 
 	timer:start(2000, 0, function()
-		callback("something went wrong")
+		-- First parameter is the error
+		callback(nil, "hello world")
 	end)
+end
+
+local function fail_async(callback)
+	local timer = vim.loop.new_timer()
+
+	assert(timer)
+
+	timer:start(2000, 0, function()
+		-- First parameter is the error
+		callback("something went wrong", nil)
+	end)
+end
+
+local function log(message)
+	vim.print(os.date("%H:%M:%S") .. " " .. message)
 end
 
 vim.cmd.messages("clear")
 
-local nested = M.sync(function()
-	local response = M.wait_handle_error(M.wrap(lsp_request)())
-	vim.print(response)
+local nested = runner(function()
+	local success_sync = wrap(success_async)
+	local fail_sync = wrap(fail_async)
+
+	local success_result = wait(success_sync())
+	-- here we get the result because there is no error
+	log("success_result is: " .. success_result)
+
+	-- following is going to fail and error will get caught by
+	-- the parent runner function's 'catch'
+	wait(fail_sync())
 end)
 
-M.sync(function()
-	M.wait_handle_error(nested.run)
-end)
+runner(function()
+		log("starting the execution")
+		-- just wait for nested runner to complete the execution
+		wait(nested.run)
+	end)
 	.catch(function(err)
-		print("parent error handler " .. err)
+		log("parent error handler " .. err)
 	end)
 	.run()
