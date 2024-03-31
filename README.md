@@ -9,7 +9,7 @@ Take a look at before and after
 **Before:**
 
 ```lua
-client.request('workspace/executeCommand', cmd_info, function(err, res)
+request('workspace/executeCommand', cmd_info, function(err, res)
   if err then
     log.error(err)
   else
@@ -22,7 +22,7 @@ end, buffer)
 
 ```lua
 -- on error, statement will fail throwing an error just like any synchronous API
-local result  = client.request('workspace/executeCommand', cmd_info, buffer)
+local result  = request('workspace/executeCommand', cmd_info, buffer)
 log.debug(result)
 ```
 
@@ -87,4 +87,12 @@ runner(function()
     log("parent error handler " .. err)
   end)
   .run()
+```
+
+### Output
+
+```txt
+18:44:46 starting the execution
+18:44:48 success_result is: hello world
+18:44:50 parent error handler ...-async-await/lua/async/waits/wait_with_error_handler.lua:14: ...-async-await/lua/async/waits/wait_with_error_handler.lua:14: something went wrong
 ```
